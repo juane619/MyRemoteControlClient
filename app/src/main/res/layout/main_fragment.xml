@@ -182,10 +182,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewConexion" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/versionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="336dp"
+        android:layout_marginStart="312dp"
         android:layout_marginBottom="16dp"
         android:text="By juanE"
         app:layout_constraintBottom_toBottomOf="parent"

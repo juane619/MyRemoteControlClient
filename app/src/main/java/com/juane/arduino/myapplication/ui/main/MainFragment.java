@@ -3,6 +3,7 @@ package com.juane.arduino.myapplication.ui.main;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class MainFragment extends Fragment {
     private Button connectButton;
     private TextView connectionText;
     private TextView seekVolumeProgressText;
+    private TextView versionText;
     private EditText ipText;
     private EditText portText;
     private SeekBar volumeSeekBar;
@@ -57,6 +59,7 @@ public class MainFragment extends Fragment {
         connectionText = root.findViewById(R.id.textViewConexion);
         ipText = root.findViewById(R.id.textIp);
         portText = root.findViewById(R.id.textPort);
+        versionText = root.findViewById(R.id.versionTextView);
 
         volumeSeekBar = root.findViewById(R.id.seekBarVolume);
         seekVolumeProgressText = root.findViewById(R.id.seekVolumeText);
@@ -66,6 +69,7 @@ public class MainFragment extends Fragment {
         rightButton = root.findViewById(R.id.rightButton);
         spaceButton = root.findViewById(R.id.spaceButton);
 
+        setVersionTextView();
         setIpInput();
         setButtonConexion();
         setVolumeSeekBar();
@@ -76,6 +80,14 @@ public class MainFragment extends Fragment {
         setSpaceButton();
 
         return root;
+    }
+
+    private void setVersionTextView() {
+        try {
+            versionText.setText("juanE " + getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setIpInput() {
