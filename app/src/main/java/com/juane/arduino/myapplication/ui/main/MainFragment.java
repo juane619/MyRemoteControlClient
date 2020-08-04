@@ -1,9 +1,10 @@
 package com.juane.arduino.myapplication.ui.main;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +25,10 @@ import com.juane.arduino.myapplication.utils.Utils;
 public class MainFragment extends Fragment {
 
     private static ClientManager clientManager;
-    String IPAddress = "";
 
     private Button connectButton;
-    private TextView conexionText;
-    private TextView seekVolumePogressText;
+    private TextView connectionText;
+    private TextView seekVolumeProgressText;
     private EditText ipText;
     private EditText portText;
     private SeekBar volumeSeekBar;
@@ -54,18 +54,19 @@ public class MainFragment extends Fragment {
         View root = inflater.inflate(R.layout.main_fragment, container, false);
 
         connectButton = root.findViewById(R.id.buttonConexion);
-        conexionText = root.findViewById(R.id.textViewConexion);
+        connectionText = root.findViewById(R.id.textViewConexion);
         ipText = root.findViewById(R.id.textIp);
         portText = root.findViewById(R.id.textPort);
 
         volumeSeekBar = root.findViewById(R.id.seekBarVolume);
-        seekVolumePogressText = root.findViewById(R.id.seekVolumeText);
+        seekVolumeProgressText = root.findViewById(R.id.seekVolumeText);
 
         muteButton = root.findViewById(R.id.muteButton);
         leftButton = root.findViewById(R.id.leftButton);
         rightButton = root.findViewById(R.id.rightButton);
         spaceButton = root.findViewById(R.id.spaceButton);
 
+        setIpInput();
         setButtonConexion();
         setVolumeSeekBar();
 
@@ -75,6 +76,16 @@ public class MainFragment extends Fragment {
         setSpaceButton();
 
         return root;
+    }
+
+    private void setIpInput() {
+        SharedPreferences sharedPref = getActivity().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        if(sharedPref.contains(getString(R.string.IP_INPUT_KEY))){
+            ipText.setText(sharedPref.getString(getString(R.string.IP_INPUT_KEY), "192.168.0.18"));
+        }else{
+            sharedPref.edit().putString(getString(R.string.IP_INPUT_KEY), "192.168.0.18").commit();
+        }
     }
 
     private void setSpaceButton() {
@@ -121,14 +132,14 @@ public class MainFragment extends Fragment {
                 if(clientManager.isConnected()){
                     if(muted){
                         clientManager.sendVolumeData(volumeBack);
-                        seekVolumePogressText.setText(String.valueOf(volumeBack));
+                        seekVolumeProgressText.setText(String.valueOf(volumeBack));
                         volumeSeekBar.setProgress(volumeBack);
                         muted = false;
                     }else{
                         muted=true;
                         clientManager.sendVolumeData(0);
                         volumeBack = volumeSeekBar.getProgress();
-                        seekVolumePogressText.setText("0");
+                        seekVolumeProgressText.setText("0");
                         volumeSeekBar.setProgress(0);
                     }
 
@@ -139,13 +150,13 @@ public class MainFragment extends Fragment {
     }
 
     private void setVolumeSeekBar() {
-        seekVolumePogressText.setText(String.valueOf(volumeSeekBar.getProgress()));
+        seekVolumeProgressText.setText(String.valueOf(volumeSeekBar.getProgress()));
         volumeSeekBar.setEnabled(false);
         volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 System.out.println("Changing progress of seek bar volume");
-                seekVolumePogressText.setText(String.valueOf(seekBar.getProgress()));
+                seekVolumeProgressText.setText(String.valueOf(seekBar.getProgress()));
 
                 int volumeData = seekBar.getProgress();
 
@@ -188,9 +199,12 @@ public class MainFragment extends Fragment {
     }
 
     private void connect() {
-        IPAddress = ipText.getText().toString();
+        String IPAddress = ipText.getText().toString();
 
         if (Utils.validateIP(IPAddress)) {
+            SharedPreferences sharedPref = getActivity().getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            sharedPref.edit().putString(getString(R.string.IP_INPUT_KEY), ipText.getText().toString()).commit();
             connectButton.setText("CONNECTING...");
             connectButton.setEnabled(false);
             clientManager.connect(this, IPAddress, Integer.parseInt(portText.getText().toString()));
@@ -198,16 +212,16 @@ public class MainFragment extends Fragment {
     }
 
     public void updateUIConnect(){
-        conexionText.setTextColor(Color.GREEN);
-        conexionText.setText("CONNECTED");
+        connectionText.setTextColor(Color.GREEN);
+        connectionText.setText("CONNECTED");
         connectButton.setText("DISCONNECT");
         connectButton.setEnabled(true);
         enableControls();
     }
 
     public void updateUIDisconnect(){
-        conexionText.setTextColor(Color.RED);
-        conexionText.setText("DISCONNECTED");
+        connectionText.setTextColor(Color.RED);
+        connectionText.setText("DISCONNECTED");
         connectButton.setText("CONNECT");
         disableControls();
         connectButton.setEnabled(true);
