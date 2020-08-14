@@ -122,6 +122,17 @@ public class MainFragment extends Fragment {
                 }
             }
         });
+
+        rightButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(clientManager.isConnected()){
+                    clientManager.sendKeyMessage(MessageTypes.KEYRIGHT_LONG_MESSAGE);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void setLeftButton() {
@@ -132,6 +143,17 @@ public class MainFragment extends Fragment {
                 if(clientManager.isConnected()){
                     clientManager.sendKeyMessage(MessageTypes.KEYLEFT_MESSAGE);
                 }
+            }
+        });
+
+        leftButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(clientManager.isConnected()){
+                    clientManager.sendKeyMessage(MessageTypes.KEYLEFT_LONG_MESSAGE);
+                    return true;
+                }
+                return false;
             }
         });
     }

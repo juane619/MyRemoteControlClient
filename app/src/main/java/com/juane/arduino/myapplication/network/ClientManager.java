@@ -22,21 +22,9 @@ public class ClientManager {
     }
 
     public void sendKeyMessage(int keyMessage){
-        switch(keyMessage){
-            case MessageTypes.KEYSPACE_MESSAGE:
-                new Thread(new SentMessageTask(MessageTypes.KEYSPACE_MESSAGE, null, mTcpClient)).start();
-                break;
-            case MessageTypes.KEYLEFT_MESSAGE:
-                new Thread(new SentMessageTask(MessageTypes.KEYLEFT_MESSAGE, null, mTcpClient)).start();
-                break;
-            case MessageTypes.KEYRIGHT_MESSAGE:
-                new Thread(new SentMessageTask(MessageTypes.KEYRIGHT_MESSAGE, null, mTcpClient)).start();
-                break;
-            default:
-                break;
-        }
-
+        new Thread(new SentMessageTask(keyMessage, null, mTcpClient)).start();
     }
+
     public void disconnect(){
 
         if(TcpClient.isConnected())
