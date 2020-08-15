@@ -4,53 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.MainFragment">
-
-    <TextView
-        android:id="@+id/message3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="24dp"
-        android:text="IP"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/message2" />
-
-    <TextView
-        android:id="@+id/message2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="24dp"
-        android:text="Status"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+    tools:context=".ui.fragments.MainFragment">
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="176dp"
-        android:text="CONTROLS"
-        android:textSize="20sp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Controls"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.129"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Server"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="40dp"
         android:text="Volume"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/seekBarVolume"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
     <SeekBar
         android:id="@+id/seekBarVolume"
@@ -60,7 +59,7 @@
         android:max="100"
         android:progress="20"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.31"
+        app:layout_constraintHorizontal_bias="0.564"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/message" />
 
@@ -68,135 +67,229 @@
         android:id="@+id/message4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="76dp"
-        android:text="Keys"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/seekBarVolume"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarVolume" />
+        android:layout_marginEnd="192dp"
+        android:text="Video keyboard"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+    <Button
+        android:id="@+id/rightButton"
+        style="@android:style/Widget.DeviceDefault.Light.Button.Small"
+        android:layout_width="65dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/backgroundColorButtons"
+        android:drawableTop="@drawable/ic_fast_forward_24px"
+        android:enabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/spaceButton"
+        app:layout_constraintEnd_toStartOf="@+id/spaceButton"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toEndOf="@+id/leftButton"
+        app:layout_constraintTop_toTopOf="@+id/leftButton"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/leftButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="8dp"
-        android:text="LEFT"
-        app:layout_constraintEnd_toStartOf="@+id/rightButton"
-        app:layout_constraintHorizontal_bias="0.235"
+        style="@android:style/Widget.DeviceDefault.Light.Button.Small"
+        android:layout_width="65dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/backgroundColorButtons"
+        android:drawableTop="@drawable/ic_fast_rewind_24px"
+        android:enabled="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/message4" />
 
     <Button
         android:id="@+id/spaceButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="PLAY/PAUSE"
+        style="@android:style/Widget.DeviceDefault.Light.Button.Small"
+        android:layout_width="65dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/backgroundColorButtons"
+        android:drawableTop="@drawable/ic_play_24px"
+        android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintHorizontal_bias="0.901"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/message4" />
-
-    <Button
-        android:id="@+id/rightButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="92dp"
-        android:text="RIGHT"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/message4" />
+        app:layout_constraintTop_toTopOf="@+id/leftButton" />
 
     <Button
         android:id="@+id/muteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="260dp"
-        android:text="MUTE"
+        style="@android:style/Widget.DeviceDefault.Light.Button.Small"
+        android:layout_width="42dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="28dp"
+        android:backgroundTint="@color/backgroundColorButtons"
+        android:drawableTop="@drawable/ic_volume_off_24px"
+        android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarVolume" />
+        app:layout_constraintTop_toTopOf="@+id/seekBarVolume" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="56dp"
-        android:text="SERVER"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewConexion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="45dp"
+        android:layout_height="50dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="28dp"
-        android:text="DISCONNECTED"
-        android:textColor="#D50000"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintStart_toEndOf="@+id/message2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.007" />
+        android:src="@drawable/ic_wifi_24px"
+        android:tint="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/message2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:text="Status"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <Button
         android:id="@+id/buttonConexion"
+        style="@android:style/Widget.DeviceDefault.Light.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/backgroundColorButtons"
         android:text="CONNECT"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textIp" />
 
     <EditText
-        android:id="@+id/textIp"
-        android:layout_width="147dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="192.168.1.134"
-        app:layout_constraintEnd_toStartOf="@+id/buttonConexion"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/message3"
-        app:layout_constraintTop_toBottomOf="@+id/textViewConexion" />
-
-    <EditText
         android:id="@+id/textPort"
         android:layout_width="92dp"
         android:layout_height="43dp"
-        android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="8787"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.153"
+        app:layout_constraintHorizontal_bias="0.191"
         app:layout_constraintStart_toEndOf="@+id/textIp"
-        app:layout_constraintTop_toBottomOf="@+id/textViewConexion" />
+        app:layout_constraintTop_toTopOf="@+id/textIp" />
+
+    <TextView
+        android:id="@+id/message5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="144dp"
+        android:text="PORT"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/textPort"
+        app:layout_constraintStart_toEndOf="@+id/message3"
+        app:layout_constraintTop_toTopOf="@+id/message3"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/message3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="68dp"
+        android:text="IP"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <EditText
+        android:id="@+id/textIp"
+        android:layout_width="147dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="68dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="192.168.1.134"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/message2" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="320dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonConexion" />
+
+    <TextView
+        android:id="@+id/textViewConexion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="4dp"
+        android:text="DISCONNECTED"
+        android:textColor="#D50000"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/message2" />
 
     <TextView
         android:id="@+id/versionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="312dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginBottom="60dp"
         android:text="By juanE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layout_constraintGuide_end="495dp"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="25dp" />
 
     <TextView
         android:id="@+id/seekVolumeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="144dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginBottom="12dp"
         app:layout_constraintBottom_toTopOf="@+id/seekBarVolume"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/message" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="45dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/ic_keyboard_24px"
+        android:tint="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="45dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_volume_up_24px"
+        android:tint="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="1dp"
+        android:layout_height="41dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toStartOf="@+id/spaceButton"
+        app:layout_constraintStart_toEndOf="@+id/rightButton"
+        app:layout_constraintTop_toTopOf="@+id/rightButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
