@@ -83,11 +83,7 @@ public class MainFragment extends Fragment {
     }
 
     private void setVersionTextView() {
-        try {
-            versionText.setText("juanE " + getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        versionText.setText("juanE " + Utils.getVersion(this));
     }
 
     private void setIpInput() {
@@ -227,7 +223,7 @@ public class MainFragment extends Fragment {
         });
     }
 
-    public void disconnect() {
+    private void disconnect() {
         clientManager.disconnect();
         updateUIDisconnect();
     }
