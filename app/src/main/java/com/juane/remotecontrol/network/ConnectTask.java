@@ -1,18 +1,22 @@
 package com.juane.remotecontrol.network;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.juane.remotecontrol.MainActivity;
+import com.juane.remotecontrol.R;
 import com.juane.remotecontrol.ui.fragments.MainFragment;
+import com.juane.remotecontrol.ui.fragments.PowerFragment;
 
 import java.io.IOException;
 
 public class ConnectTask extends AsyncTask<String, String, TcpClient> {
     private TcpClient mTcpClient;
-    private MainFragment mainFragment;
+    private Context context;
 
-    public ConnectTask(MainFragment mainFragment, TcpClient tcpClient) {
-       this.mainFragment = mainFragment;
+    public ConnectTask(Context context, TcpClient tcpClient) {
+       this.context = context;
        mTcpClient = tcpClient;
     }
 
@@ -51,13 +55,15 @@ public class ConnectTask extends AsyncTask<String, String, TcpClient> {
         super.onProgressUpdate(values);
 
         if(values[0].contains("update ui connect")){
-            mainFragment.updateUIConnect();
+            ((MainActivity)context).getMainFragment().updateUIConnect();
+            ((MainActivity)context).getPowerFragment().updateUIConnect();
         }
     }
 
     @Override
     protected void onPostExecute(TcpClient tcpClient) {
         super.onPostExecute(tcpClient);
-        mainFragment.updateUIDisconnect();
+        ((MainActivity)context).getMainFragment().updateUIDisconnect();
+        ((MainActivity)context).getPowerFragment().updateUIDisconnect();
     }
 }

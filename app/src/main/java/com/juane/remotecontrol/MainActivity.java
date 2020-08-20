@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private NoSwipePager viewPager;
 
     private BottomNavigationView navigation;
-    private MainFragment mainFragment = MainFragment.newInstance();
+    private MainFragment mainFragment = new MainFragment();
     private PowerFragment powerFragment = new PowerFragment();
     private SettingsFragment settingsFragment = new SettingsFragment();
 
@@ -62,6 +62,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public MainFragment getMainFragment(){
+        return mainFragment;
+    }
+
+    public PowerFragment getPowerFragment(){
+        return powerFragment;
+    }
+
 
     public void changeTab(int tabId) {
         navigation.setSelectedItemId(tabId);

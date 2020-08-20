@@ -1,7 +1,8 @@
 ## Changelog
 
-### Newest version: 1.0.3
-* Changed UI: Added bottom navigation with three options, key controls and audio, shutdown/suspending action and settings.
+### Newest version: 1.1.0
+* Changed UI: Added bottom navigation with three tabs, key controls and audio, shutdown/suspend action, settings.
+* Reestyling of UI. Added icons, new colors and new launcher icon.
 
 ### 1.0.2
 * Show the version at bottom.

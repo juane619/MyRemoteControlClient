@@ -15,21 +15,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
+import com.juane.remotecontrol.MainActivity;
 import com.juane.remotecontrol.R;
-import com.juane.remotecontrol.network.ClientManager;
-import com.juane.remotecontrol.network.MessageTypes;
+import com.juane.remotecontrol.model.MessageTypes;
 import com.juane.remotecontrol.utils.Utils;
 
-public class MainFragment extends Fragment {
-
-    private static ClientManager clientManager;
-
+public class MainFragment extends RemoteFragment {
     private Button connectButton;
     private TextView connectionText;
     private TextView seekVolumeProgressText;
-    private TextView versionText;
+
     private EditText ipText;
     private EditText portText;
     private SeekBar volumeSeekBar;
@@ -42,10 +38,8 @@ public class MainFragment extends Fragment {
     private int volumeBack = -1;
     private boolean muted = false;
 
-    public static MainFragment newInstance() {
-        clientManager = new ClientManager();
-
-        return new MainFragment();
+    public MainFragment() {
+        super();
     }
 
     @Nullable
@@ -81,9 +75,22 @@ public class MainFragment extends Fragment {
         return root;
     }
 
-    private void setVersionTextView() {
-        versionText.setText("By juanE " + Utils.getVersion(this));
+    public void updateUIConnect(){
+        connectionText.setTextColor(Color.GREEN);
+        connectionText.setText("CONNECTED");
+        connectButton.setText("DISCONNECT");
+
+        enableControls();
     }
+
+    public void updateUIDisconnect(){
+        connectionText.setTextColor(Color.RED);
+        connectionText.setText("DISCONNECTED");
+        connectButton.setText("CONNECT");
+        disableControls();
+        connectButton.setEnabled(true);
+    }
+
 
     private void setIpInput() {
         SharedPreferences sharedPref = getActivity().getSharedPreferences(
@@ -101,7 +108,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                     if(clientManager.isConnected()){
-                        clientManager.sendKeyMessage(MessageTypes.KEYSPACE_MESSAGE);
+                        clientManager.sendMessage(MessageTypes.KEYSPACE_MESSAGE, null);
                     }
             }
         });
@@ -113,7 +120,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(clientManager.isConnected()){
-                    clientManager.sendKeyMessage(MessageTypes.KEYRIGHT_MESSAGE);
+                    clientManager.sendMessage(MessageTypes.KEYRIGHT_MESSAGE, null);
                 }
             }
         });
@@ -122,7 +129,7 @@ public class MainFragment extends Fragment {
             @Override
             public boolean onLongClick(View v) {
                 if(clientManager.isConnected()){
-                    clientManager.sendKeyMessage(MessageTypes.KEYRIGHT_LONG_MESSAGE);
+                    clientManager.sendMessage(MessageTypes.KEYRIGHT_LONG_MESSAGE, null);
                     return true;
                 }
                 return false;
@@ -136,7 +143,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(clientManager.isConnected()){
-                    clientManager.sendKeyMessage(MessageTypes.KEYLEFT_MESSAGE);
+                    clientManager.sendMessage(MessageTypes.KEYLEFT_MESSAGE, null);
                 }
             }
         });
@@ -145,7 +152,7 @@ public class MainFragment extends Fragment {
             @Override
             public boolean onLongClick(View v) {
                 if(clientManager.isConnected()){
-                    clientManager.sendKeyMessage(MessageTypes.KEYLEFT_LONG_MESSAGE);
+                    clientManager.sendMessage(MessageTypes.KEYLEFT_LONG_MESSAGE, null);
                     return true;
                 }
                 return false;
@@ -160,13 +167,13 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 if(clientManager.isConnected()){
                     if(muted){
-                        clientManager.sendVolumeData(volumeBack);
+                        clientManager.sendMessage(MessageTypes.VOLUME_MESSAGE, String.valueOf(volumeBack));
                         seekVolumeProgressText.setText(String.valueOf(volumeBack));
                         volumeSeekBar.setProgress(volumeBack);
                         muted = false;
                     }else{
                         muted=true;
-                        clientManager.sendVolumeData(0);
+                        clientManager.sendMessage(MessageTypes.VOLUME_MESSAGE, String.valueOf(0));
                         volumeBack = volumeSeekBar.getProgress();
                         seekVolumeProgressText.setText("0");
                         volumeSeekBar.setProgress(0);
@@ -190,7 +197,7 @@ public class MainFragment extends Fragment {
                 int volumeData = seekBar.getProgress();
 
                 if(clientManager.isConnected()){
-                    clientManager.sendVolumeData(volumeData);
+                    clientManager.sendMessage(MessageTypes.VOLUME_MESSAGE, String.valueOf(volumeData));
                 }
             }
 
@@ -225,6 +232,7 @@ public class MainFragment extends Fragment {
     private void disconnect() {
         clientManager.disconnect();
         updateUIDisconnect();
+        ((MainActivity)getActivity()).getPowerFragment().updateUIDisconnect();
     }
 
     private void connect() {
@@ -236,24 +244,8 @@ public class MainFragment extends Fragment {
             sharedPref.edit().putString(getString(R.string.input_IP_KEY), ipText.getText().toString()).commit();
             connectButton.setText("CONNECTING...");
             connectButton.setEnabled(false);
-            clientManager.connect(this, IPAddress, Integer.parseInt(portText.getText().toString()));
+            clientManager.connect(getContext(), IPAddress, Integer.parseInt(portText.getText().toString()));
         }
-    }
-
-    public void updateUIConnect(){
-        connectionText.setTextColor(Color.GREEN);
-        connectionText.setText("CONNECTED");
-        connectButton.setText("DISCONNECT");
-        connectButton.setEnabled(true);
-        enableControls();
-    }
-
-    public void updateUIDisconnect(){
-        connectionText.setTextColor(Color.RED);
-        connectionText.setText("DISCONNECTED");
-        connectButton.setText("CONNECT");
-        disableControls();
-        connectButton.setEnabled(true);
     }
 
     private void disableControls() {
@@ -265,16 +257,12 @@ public class MainFragment extends Fragment {
     }
 
     private void enableControls() {
+        connectButton.setEnabled(true);
         volumeSeekBar.setEnabled(true);
         muteButton.setEnabled(true);
         leftButton.setEnabled(true);
         rightButton.setEnabled(true);
         spaceButton.setEnabled(true);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
 }

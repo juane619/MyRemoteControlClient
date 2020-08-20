@@ -26,7 +26,6 @@ public class TcpClient {
 
     private String IPAddress;
     private int port;
-    private SeekBar seekVolumeBar;
     Socket socket = null;
 
     /**
@@ -35,8 +34,6 @@ public class TcpClient {
     public TcpClient(String IPAddress, int port) {
         this.IPAddress = IPAddress;
         this.port = port;
-        this.seekVolumeBar = seekVolumeBar;
-
     }
 
     public static boolean isConnected() {
