@@ -5,13 +5,12 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.juane.remotecontrol.MainActivity;
-import com.juane.remotecontrol.R;
-import com.juane.remotecontrol.ui.fragments.MainFragment;
-import com.juane.remotecontrol.ui.fragments.PowerFragment;
+import com.juane.remotecontrol.model.MessageTypes;
+import com.juane.remotecontrol.model.RemoteConstants;
 
 import java.io.IOException;
 
-public class ConnectTask extends AsyncTask<String, String, TcpClient> {
+public class ConnectTask extends AsyncTask<String, String, Void> {
     private TcpClient mTcpClient;
     private Context context;
 
@@ -21,18 +20,16 @@ public class ConnectTask extends AsyncTask<String, String, TcpClient> {
     }
 
     @Override
-    protected TcpClient doInBackground(String... message) {
-        //we create a TCPClient object and
+    protected Void doInBackground(String... message) {
         mTcpClient.setMessageListener(new TcpClient.OnMessageReceived() {
             @Override
             //here the messageReceived method is implemented
-            public void messageReceived(String message) {
-
-                if(message.contains("welcome")){
-                    publishProgress("update ui connect");
+            public void messageReceived(int messageType, String dataReceived) {
+                if(messageType == MessageTypes.CONNECT_REQUEST_MESSAGE){
+                    publishProgress(RemoteConstants.UPDATE_UI_CONNECT_DATA_MESSAGE);
                 }
 
-                Log.i("Debug", "Input server message: " + message);
+                Log.i("Debug", "Input server message: " + dataReceived);
             }
         });
 
@@ -52,17 +49,14 @@ public class ConnectTask extends AsyncTask<String, String, TcpClient> {
 
     @Override
     protected void onProgressUpdate(String... values) {
-        super.onProgressUpdate(values);
-
-        if(values[0].contains("update ui connect")){
+        if(values[0].contains(RemoteConstants.UPDATE_UI_CONNECT_DATA_MESSAGE)){
             ((MainActivity)context).getMainFragment().updateUIConnect();
             ((MainActivity)context).getPowerFragment().updateUIConnect();
         }
     }
 
     @Override
-    protected void onPostExecute(TcpClient tcpClient) {
-        super.onPostExecute(tcpClient);
+    protected void onPostExecute(Void v) {
         ((MainActivity)context).getMainFragment().updateUIDisconnect();
         ((MainActivity)context).getPowerFragment().updateUIDisconnect();
     }

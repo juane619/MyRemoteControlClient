@@ -2,19 +2,18 @@ package com.juane.remotecontrol.network;
 
 import android.content.Context;
 
+import com.juane.remotecontrol.model.MessageTypes;
 import com.juane.remotecontrol.ui.fragments.MainFragment;
 
 public class ClientManager {
-    private boolean connected = false;
     private TcpClient mTcpClient = null;
 
     public void connect(Context ctx, String serverIpAddress, int port){
-        if(!connected) {
+        if(!isConnected()) {
             try {
                 mTcpClient = new TcpClient(serverIpAddress, port);
 
                 new ConnectTask(ctx, mTcpClient).execute("");
-                setConnected(TcpClient.isConnected());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -22,11 +21,10 @@ public class ClientManager {
     }
 
     public void disconnect(){
-        if(connected) {
-            if (TcpClient.isConnected()) {
-                mTcpClient.stopClient();
-                setConnected(false);
-            }
+        if(isConnected()) {
+            // send message to close connection with server
+            sendMessage(MessageTypes.DISCONNECT_REQUEST_MESSAGE, String.valueOf(mTcpClient.getIdClient()));
+            //mTcpClient.stopClient();
         }
     }
 
@@ -35,10 +33,6 @@ public class ClientManager {
     }
 
     public boolean isConnected() {
-        return TcpClient.isConnected();
-    }
-
-    private void setConnected(boolean connected) {
-        this.connected = connected;
+        return mTcpClient.isConnected();
     }
 }

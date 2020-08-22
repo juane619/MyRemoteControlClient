@@ -230,9 +230,11 @@ public class MainFragment extends RemoteFragment {
     }
 
     private void disconnect() {
-        clientManager.disconnect();
-        updateUIDisconnect();
-        ((MainActivity)getActivity()).getPowerFragment().updateUIDisconnect();
+        if(clientManager.isConnected()) {
+            clientManager.disconnect();
+            updateUIDisconnect();
+            ((MainActivity) getActivity()).getPowerFragment().updateUIDisconnect();
+        }
     }
 
     private void connect() {

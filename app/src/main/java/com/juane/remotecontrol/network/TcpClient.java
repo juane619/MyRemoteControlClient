@@ -1,7 +1,8 @@
 package com.juane.remotecontrol.network;
 
 import android.util.Log;
-import android.widget.SeekBar;
+
+import com.juane.remotecontrol.model.MessageTypes;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,9 +11,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 
 public class TcpClient {
+    private int idClient;
     // while this is true, the server will continue running
     private static boolean mRun = false;
     // message to send to the server
@@ -26,7 +30,7 @@ public class TcpClient {
 
     private String IPAddress;
     private int port;
-    Socket socket = null;
+    private Socket socket = null;
 
     /**
      * Constructor of the class. OnMessagedReceived listens for the messages received from server
@@ -64,11 +68,15 @@ public class TcpClient {
     public void stopClient() {
         Log.i("Debug", "stopClient");
 
-        // send mesage that we are closing the connection
-        //sendMessage(Constants.CLOSED_CONNECTION + "Kazy");
-
         mRun = false;
 
+        if(!socket.isClosed()){
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         if (mBufferOut != null) {
             mBufferOut.flush();
             mBufferOut.close();
@@ -90,7 +98,8 @@ public class TcpClient {
         Log.i("TCP Client", "Connecting...");
 
         //create a socket to make the connection with the server
-        socket = new Socket(serverAddr, port);
+        socket = new Socket();
+        socket.connect(new InetSocketAddress(serverAddr, port), 5000);
 
         //sends the message to the server
         mBufferOut = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
@@ -100,20 +109,38 @@ public class TcpClient {
 
         //in this while the client listens for the messages sent by the server
         while (mRun) {
-            mServerMessage = mBufferIn.readLine();
+            final int messageType = mBufferIn.read();
 
-            if (mServerMessage != null && mMessageListener != null) {
+            // disconnected from server
+            if(messageType == -1){
+                break;
+            }
+            String dataReceived = mBufferIn.readLine();
+
+            if(messageType == MessageTypes.CONNECT_REQUEST_MESSAGE){
+                setIdClient(Integer.valueOf(dataReceived));
+            }
+
+            if (mMessageListener != null) {
                 //call the method messageReceived from MyActivity class
-                mMessageListener.messageReceived(mServerMessage);
+                mMessageListener.messageReceived(messageType, dataReceived);
             }
         }
-        Log.i("RESPONSE FROM SERVER", "Received Message: '" + mServerMessage + "'");
 
+        stopClient();
+    }
+
+    public void setIdClient(int id){
+        idClient = id;
+    }
+
+    public int getIdClient() {
+        return idClient;
     }
 
     //Declare the interface. The method messageReceived(String message) will must be implemented in the MyActivity
     //class at on asynckTask doInBackground
     public interface OnMessageReceived {
-        void messageReceived(String message);
+        void messageReceived(int messageType, String dataReceived);
     }
 }
