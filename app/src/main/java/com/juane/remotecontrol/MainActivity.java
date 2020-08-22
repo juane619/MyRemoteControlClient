@@ -18,9 +18,9 @@ public class MainActivity extends AppCompatActivity {
     private NoSwipePager viewPager;
 
     private BottomNavigationView navigation;
-    private MainFragment mainFragment = new MainFragment();
-    private PowerFragment powerFragment = new PowerFragment();
-    private SettingsFragment settingsFragment = new SettingsFragment();
+    private final MainFragment mainFragment = new MainFragment();
+    private final PowerFragment powerFragment = new PowerFragment();
+    private final SettingsFragment settingsFragment = new SettingsFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

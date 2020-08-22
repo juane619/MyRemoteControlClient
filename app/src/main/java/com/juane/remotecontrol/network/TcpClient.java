@@ -3,6 +3,7 @@ package com.juane.remotecontrol.network;
 import android.util.Log;
 
 import com.juane.remotecontrol.model.MessageTypes;
+import com.juane.remotecontrol.model.RemoteConstants;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,14 +14,11 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketAddress;
 
-public class TcpClient {
+class TcpClient {
     private int idClient;
     // while this is true, the server will continue running
     private static boolean mRun = false;
-    // message to send to the server
-    private String mServerMessage;
     // sends message received notifications
     private OnMessageReceived mMessageListener = null;
     // used to send messages
@@ -28,8 +26,8 @@ public class TcpClient {
     // used to read messages from the server
     private BufferedReader mBufferIn;
 
-    private String IPAddress;
-    private int port;
+    private final String IPAddress;
+    private final int port;
     private Socket socket = null;
 
     /**
@@ -40,7 +38,7 @@ public class TcpClient {
         this.port = port;
     }
 
-    public static boolean isConnected() {
+    public boolean isConnected() {
         return mRun;
     }
 
@@ -85,7 +83,6 @@ public class TcpClient {
         mMessageListener = null;
         mBufferIn = null;
         mBufferOut = null;
-        mServerMessage = null;
     }
 
     public void run() throws IOException {
@@ -93,13 +90,13 @@ public class TcpClient {
         mRun = true;
 
         //here you must put your computer's IP address.
-        InetAddress serverAddr = InetAddress.getByName(IPAddress);
+        InetAddress serverAddress = InetAddress.getByName(IPAddress);
 
         Log.i("TCP Client", "Connecting...");
 
         //create a socket to make the connection with the server
         socket = new Socket();
-        socket.connect(new InetSocketAddress(serverAddr, port), 5000);
+        socket.connect(new InetSocketAddress(serverAddress, port), RemoteConstants.SOCKET_CONNECT_TIMEOUT);
 
         //sends the message to the server
         mBufferOut = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
@@ -130,7 +127,7 @@ public class TcpClient {
         stopClient();
     }
 
-    public void setIdClient(int id){
+    void setIdClient(int id){
         idClient = id;
     }
 

@@ -63,6 +63,7 @@
         android:layout_width="103dp"
         android:layout_height="99dp"
         android:layout_marginStart="52dp"
+        android:tint="@color/btn_power_color_sel"
         android:src="@drawable/ic_moon"
         android:background="@drawable/selector_power_buttons"
         app:layout_constraintStart_toEndOf="@+id/imageButtonPowerOff"
@@ -70,13 +71,14 @@
 
     <ImageButton
         android:id="@+id/imageButtonPowerOff"
-        android:state_selected="true"
         android:layout_width="103dp"
         android:layout_height="99dp"
         android:layout_marginStart="52dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/ic_off"
         android:background="@drawable/selector_power_buttons"
+        android:tint="@color/btn_power_color_sel"
+        android:src="@drawable/ic_off"
+        android:state_selected="true"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -143,6 +145,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="12dp"
         android:enabled="false"
+        android:textColor="@color/btn_color_sel"
         android:text="RUN"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/timePicker1" />
@@ -153,6 +156,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:enabled="false"
+        android:textColor="@color/btn_color_sel"
         android:text="CANCEL"
         app:layout_constraintStart_toEndOf="@+id/buttonRun"
         app:layout_constraintTop_toTopOf="@+id/buttonRun" />

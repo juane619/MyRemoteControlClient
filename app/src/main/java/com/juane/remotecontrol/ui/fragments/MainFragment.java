@@ -21,6 +21,8 @@ import com.juane.remotecontrol.R;
 import com.juane.remotecontrol.model.MessageTypes;
 import com.juane.remotecontrol.utils.Utils;
 
+import java.util.Objects;
+
 public class MainFragment extends RemoteFragment {
     private Button connectButton;
     private TextView connectionText;
@@ -93,7 +95,7 @@ public class MainFragment extends RemoteFragment {
 
 
     private void setIpInput() {
-        SharedPreferences sharedPref = getActivity().getSharedPreferences(
+        SharedPreferences sharedPref = Objects.requireNonNull(getActivity()).getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         if(sharedPref.contains(getString(R.string.input_IP_KEY))){
             ipText.setText(sharedPref.getString(getString(R.string.input_IP_KEY), "192.168.0.18"));
@@ -233,7 +235,7 @@ public class MainFragment extends RemoteFragment {
         if(clientManager.isConnected()) {
             clientManager.disconnect();
             updateUIDisconnect();
-            ((MainActivity) getActivity()).getPowerFragment().updateUIDisconnect();
+            ((MainActivity) Objects.requireNonNull(getActivity())).getPowerFragment().updateUIDisconnect();
         }
     }
 
@@ -241,7 +243,7 @@ public class MainFragment extends RemoteFragment {
         String IPAddress = ipText.getText().toString();
 
         if (Utils.validateIP(IPAddress)) {
-            SharedPreferences sharedPref = getActivity().getSharedPreferences(
+            SharedPreferences sharedPref = Objects.requireNonNull(getActivity()).getSharedPreferences(
                     getString(R.string.preference_file_key), Context.MODE_PRIVATE);
             sharedPref.edit().putString(getString(R.string.input_IP_KEY), ipText.getText().toString()).commit();
             connectButton.setText("CONNECTING...");

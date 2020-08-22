@@ -11,10 +11,9 @@ import com.juane.remotecontrol.utils.Utils;
  * Fragment with ClientManager to call server from any Fragment that extends this class
  */
 
-public class RemoteFragment extends Fragment {
-    protected static ClientManager clientManager;
-
-    protected TextView versionText;
+class RemoteFragment extends Fragment {
+    static ClientManager clientManager;
+    TextView versionText;
 
     public RemoteFragment() {
         if (clientManager == null) {
@@ -22,7 +21,7 @@ public class RemoteFragment extends Fragment {
         }
     }
 
-    protected void setVersionTextView() {
+    void setVersionTextView() {
         versionText.setText("By juanE " + Utils.getVersion(this));
     }
 

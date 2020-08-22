@@ -10,9 +10,9 @@ import com.juane.remotecontrol.model.RemoteConstants;
 
 import java.io.IOException;
 
-public class ConnectTask extends AsyncTask<String, String, Void> {
-    private TcpClient mTcpClient;
-    private Context context;
+class ConnectTask extends AsyncTask<String, String, Void> {
+    private final TcpClient mTcpClient;
+    private final Context context;
 
     public ConnectTask(Context context, TcpClient tcpClient) {
        this.context = context;

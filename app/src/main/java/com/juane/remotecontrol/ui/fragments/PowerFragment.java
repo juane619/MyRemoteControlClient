@@ -1,6 +1,5 @@
 package com.juane.remotecontrol.ui.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -22,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 public class PowerFragment extends RemoteFragment {
     private static final String INITIAL_TIME = "00:00:00";
-    PowerActionEnum selectedAction = PowerActionEnum.POWER_OFF;
+    private PowerActionEnum selectedAction = PowerActionEnum.POWER_OFF;
     private ImageButton imageButtonPowerOff, imageButtonSleep;
     private TimePicker myTimePicker;
     private TextView textViewCountdown;

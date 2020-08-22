@@ -2,9 +2,9 @@ package com.juane.remotecontrol.network;
 
 class SentMessageTask implements Runnable
 {
-    String message;
-    private TcpClient tcpClient;
-    int messageType;
+    private final String message;
+    private final TcpClient tcpClient;
+    private final int messageType;
 
     public SentMessageTask(int messageType, String message, TcpClient tcpClient){
         this.message = message;

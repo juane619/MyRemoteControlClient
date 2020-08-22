@@ -75,12 +75,11 @@
 
     <Button
         android:id="@+id/rightButton"
-        style="@android:style/Widget.DeviceDefault.Light.Button.Small"
         android:layout_width="65dp"
         android:layout_height="40dp"
-        android:backgroundTint="@color/backgroundColorButtons"
         android:drawableTop="@drawable/ic_fast_forward_24px"
         android:enabled="false"
+        android:drawableTint="@color/btn_color_sel"
         app:layout_constraintBottom_toTopOf="@+id/spaceButton"
         app:layout_constraintEnd_toStartOf="@+id/spaceButton"
         app:layout_constraintHorizontal_bias="0.2"
@@ -90,24 +89,22 @@
 
     <Button
         android:id="@+id/leftButton"
-        style="@android:style/Widget.DeviceDefault.Light.Button.Small"
         android:layout_width="65dp"
         android:layout_height="40dp"
         android:layout_marginStart="108dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/backgroundColorButtons"
         android:drawableTop="@drawable/ic_fast_rewind_24px"
+        android:drawableTint="@color/btn_color_sel"
         android:enabled="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/message4" />
 
     <Button
         android:id="@+id/spaceButton"
-        style="@android:style/Widget.DeviceDefault.Light.Button.Small"
         android:layout_width="65dp"
         android:layout_height="40dp"
-        android:backgroundTint="@color/backgroundColorButtons"
         android:drawableTop="@drawable/ic_play_24px"
+        android:drawableTint="@color/btn_color_sel"
         android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.901"
@@ -116,12 +113,11 @@
 
     <Button
         android:id="@+id/muteButton"
-        style="@android:style/Widget.DeviceDefault.Light.Button.Small"
         android:layout_width="42dp"
         android:layout_height="44dp"
         android:layout_marginEnd="28dp"
-        android:backgroundTint="@color/backgroundColorButtons"
         android:drawableTop="@drawable/ic_volume_off_24px"
+        android:drawableTint="@color/btn_color_sel"
         android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/seekBarVolume" />
@@ -148,12 +144,11 @@
 
     <Button
         android:id="@+id/buttonConexion"
-        style="@android:style/Widget.DeviceDefault.Light.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@color/backgroundColorButtons"
+        android:textColor="@color/btn_color_sel"
         android:text="CONNECT"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textIp" />

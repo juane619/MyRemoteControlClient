@@ -3,7 +3,6 @@ package com.juane.remotecontrol.network;
 import android.content.Context;
 
 import com.juane.remotecontrol.model.MessageTypes;
-import com.juane.remotecontrol.ui.fragments.MainFragment;
 
 public class ClientManager {
     private TcpClient mTcpClient = null;
@@ -33,6 +32,9 @@ public class ClientManager {
     }
 
     public boolean isConnected() {
-        return mTcpClient.isConnected();
+        if(mTcpClient != null)
+            return mTcpClient.isConnected();
+
+        return false;
     }
 }
