@@ -1,6 +1,7 @@
 ## Changelog
 
-### Newest version: 1.1.0
+### Newest version: 2.0.0
+* Changed way of connection to Server (change compatibility) and code cleaned up.
 * Changed UI: Added bottom navigation with three tabs, key controls and audio, shutdown/suspend action, settings.
 * Reestyling of UI. Added icons, new colors and new launcher icon.
 
