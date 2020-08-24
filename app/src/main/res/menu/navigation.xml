@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/controlsTabId"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/tab_controls_title" />
+
+    <item
+        android:id="@+id/powerTabId"
+        android:icon="@drawable/ic_settings_power_24px"
+        android:title="@string/tab_power_title" />
+
+    <item
+        android:id="@+id/settingsTabId"
+        android:icon="@drawable/ic_ic_settings_24px"
+        android:title="@string/tab_settings_title" />
+
+</menu>
