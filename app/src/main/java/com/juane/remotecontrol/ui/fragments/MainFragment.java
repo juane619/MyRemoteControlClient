@@ -27,10 +27,11 @@ public class MainFragment extends RemoteFragment {
     private Button connectButton;
     private TextView connectionText;
     private TextView seekVolumeProgressText;
-
     private EditText ipText;
     private EditText portText;
+
     private SeekBar volumeSeekBar;
+    private SeekBar brightnessSeekbar;
 
     private Button muteButton;
     private Button leftButton;
@@ -59,6 +60,8 @@ public class MainFragment extends RemoteFragment {
         volumeSeekBar = root.findViewById(R.id.seekBarVolume);
         seekVolumeProgressText = root.findViewById(R.id.seekVolumeText);
 
+        brightnessSeekbar = root.findViewById(R.id.seekBarBrightness);
+
         muteButton = root.findViewById(R.id.muteButton);
         leftButton = root.findViewById(R.id.leftButton);
         rightButton = root.findViewById(R.id.rightButton);
@@ -68,6 +71,7 @@ public class MainFragment extends RemoteFragment {
         setIpInput();
         setConnectButton();
         setVolumeSeekBar();
+        setBrightnessSeekBar();
 
         setMuteButton();
         setLeftButton();
@@ -217,6 +221,33 @@ public class MainFragment extends RemoteFragment {
         });
     }
 
+    private void setBrightnessSeekBar() {
+        brightnessSeekbar.setEnabled(false);
+
+        brightnessSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                System.out.println("Changing progress of brightness bar");
+
+                int brightnessData = seekBar.getProgress();
+
+                if(clientManager.isConnected()){
+                    clientManager.sendMessage(MessageTypes.BRIGHTNESS_MESSAGE, String.valueOf(brightnessData));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                System.out.println("Start tracking seek brightness bar");
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                System.out.println("Stop tracking seek brightness bar");
+            }
+        });
+    }
+
     private void setConnectButton() {
         connectButton.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
@@ -254,6 +285,7 @@ public class MainFragment extends RemoteFragment {
 
     private void disableControls() {
         volumeSeekBar.setEnabled(false);
+        brightnessSeekbar.setEnabled(false);
         muteButton.setEnabled(false);
         leftButton.setEnabled(false);
         rightButton.setEnabled(false);
@@ -263,6 +295,7 @@ public class MainFragment extends RemoteFragment {
     private void enableControls() {
         connectButton.setEnabled(true);
         volumeSeekBar.setEnabled(true);
+        brightnessSeekbar.setEnabled(true);
         muteButton.setEnabled(true);
         leftButton.setEnabled(true);
         rightButton.setEnabled(true);
