@@ -13,4 +13,5 @@ public class MessageTypes {
     public static final int POWER_OFF_MESSAGE = 9;
     public static final int SUSPEND_OFF_MESSAGE = 10;
     public static final int CANCEL_POWER_ACTION_MESSAGE = 11;
+    public static final int BRIGHTNESS_MESSAGE = 12;
 }
